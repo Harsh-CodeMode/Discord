@@ -12,7 +12,7 @@ class LeftDrawer extends StatelessWidget {
     final double leftDrawerWidth = 75;
     return Container(
       height: double.infinity,
-      color: Color(0xff23272a),
+      color: Theme.of(context).primaryColor,
       child: Container(
         height: deviceHeight,
         width: leftDrawerWidth,

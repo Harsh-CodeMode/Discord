@@ -1,3 +1,4 @@
+import '../providers/friends.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,11 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double drawerWidth = 340;
-    return ChangeNotifierProvider.value(
-      value: Groups(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: Groups()),
+        ChangeNotifierProvider.value(value: Friends())
+      ],
       child: Container(
         height: double.infinity,
         width: drawerWidth,

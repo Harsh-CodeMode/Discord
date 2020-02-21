@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xff23272a),     //left drawer
+        accentColor: Color(0xff2c2f33),      //right drawer
+        canvasColor: Color(0xff44484e),       // light right drawe
+
       ),
       home: Airbnb(),
     );

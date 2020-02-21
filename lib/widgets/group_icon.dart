@@ -61,7 +61,7 @@ class _GroupIconState extends State<GroupIcon>
                 height: 2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(1),
-                  color: Color(0xff99aab5),
+                  color: Theme.of(context).canvasColor,
                 ),
               ),
             ),
@@ -113,12 +113,12 @@ class _GroupIconState extends State<GroupIcon>
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 275),
                               color: widget.group.bottom != null
-                                  ? Color(0xff2c2f33)
+                                  ? Theme.of(context).accentColor
                                   : widget.group.top != null
                                       ? widget.group.id ==
                                               groups.currentlySelectedId
                                           ? Color(0xff7289da)
-                                          : Color(0xff2c2f33)
+                                          : Theme.of(context).accentColor
                                       : null,
                               width: 50,
                               height: 50,
@@ -152,7 +152,7 @@ class _GroupIconState extends State<GroupIcon>
                             width: 22,
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color(0xff2c2f33),
+                                  color: Theme.of(context).accentColor,
                                   shape: BoxShape.circle),
                               padding: EdgeInsets.all(2),
                               child: Container(
