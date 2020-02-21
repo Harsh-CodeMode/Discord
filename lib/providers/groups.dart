@@ -21,9 +21,6 @@ class Groups extends ChangeNotifier {
 
   final List<Group> groupList = [
     Group(
-        imageUrl:
-        'https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/91_Discord-512.png',
-        messages: 56,
         id: 0,
         top: true,
     ),
@@ -45,7 +42,7 @@ class Groups extends ChangeNotifier {
     Group(
       imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
-      messages: 0,
+      messages: 100,
       id: 3,
     ),
     Group(
@@ -56,7 +53,7 @@ class Groups extends ChangeNotifier {
     Group(
       imageUrl:
       'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
-      messages: 56,
+      messages: 0,
       id: 5,
     ),
     Group(
@@ -68,7 +65,7 @@ class Groups extends ChangeNotifier {
     Group(
       imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
-      messages: 0,
+      messages: 18,
       id: 7,
     ),
     Group(
@@ -79,7 +76,7 @@ class Groups extends ChangeNotifier {
     Group(
       imageUrl:
       'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
-      messages: 56,
+      messages: 0,
       id: 9,
     ),
     Group(
@@ -91,21 +88,20 @@ class Groups extends ChangeNotifier {
     Group(
       imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
-      messages: 11,
+      messages: 0,
       id: 11,
     ),
     Group(
       imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
-      messages: 12,
+      messages: 1,
       id: 12,
     ),
     Group(
         line: true
     ),
     Group(
-      messages: 12,
-      id: 13,
+      id: 0,
       bottom: true,
     ),
   ];

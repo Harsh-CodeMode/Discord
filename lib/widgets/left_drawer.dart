@@ -13,22 +13,15 @@ class LeftDrawer extends StatelessWidget {
     return Container(
       height: double.infinity,
       color: Color(0xff23272a),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 10
-          ),
-          Container(
-            height: deviceHeight - 30,
-            width: leftDrawerWidth,
-            child: ListView.builder(
-              itemBuilder: (context, i) {
-                return GroupIcon(groups.groupList[i]);
-              },
-              itemCount: groups.groupList.length,
-            ),
-          ),
-        ],
+      child: Container(
+        height: deviceHeight,
+        width: leftDrawerWidth,
+        child: ListView.builder(
+          itemBuilder: (context, i) {
+            return GroupIcon(groups.groupList[i]);
+          },
+          itemCount: groups.groupList.length,
+        ),
       ),
     );
   }

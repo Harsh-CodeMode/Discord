@@ -73,67 +73,109 @@ class _GroupIconState extends State<GroupIcon>
               }
             },
             child: Container(
+              margin: EdgeInsets.only(
+                top: widget.group.top != null ? 10 : 0,
+                bottom: widget.group.bottom != null ? 10 : 0,
+              ),
               width: 75,
               height: 60,
               child: Stack(
                 children: <Widget>[
-                  Positioned(
-                    left: -5,
-                    height: 60,
-                    width: 10,
-                    child: Center(
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 275),
-                        curve: Curves.easeIn,
-                        width: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        height: widget.group.id == groups.currentlySelectedId
-                            ? 35
-                            : 10,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: AnimatedBuilder(
-                      animation: _borderController,
-                      builder: (ctx, child) => ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(_borderAnimation.value),
+                  if (widget.group.messages != null &&
+                      widget.group.messages > 0)
+                    Positioned(
+                      left: -5,
+                      height: 60,
+                      width: 10,
+                      child: Center(
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: 275),
-                          color: widget.group.bottom != null
-                              ? Color(0xff2c2f33)
-                              : widget.group.top != null
-                                  ? widget.group.id ==
-                                          groups.currentlySelectedId
-                                      ? Color(0xff7289da)
-                                      : Color(0xff2c2f33)
-                                  : null,
-                          width: 50,
-                          height: 50,
-                          child: widget.group.bottom != null
-                              ? Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.green,
-                                  ),
-                                )
-                              : widget.group.top != null
-                                  ? Center(
-                                      child: Icon(
-                                        Icons.message,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : Image.network(
-                                      widget.group.imageUrl,
-                                      fit: BoxFit.cover,
-                                    ),
+                          curve: Curves.easeIn,
+                          width: 10,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                          ),
+                          height: widget.group.id == groups.currentlySelectedId
+                              ? 35
+                              : 10,
                         ),
                       ),
+                    ),
+                  Center(
+                    child: Stack(
+                      children: <Widget>[
+                        AnimatedBuilder(
+                          animation: _borderController,
+                          builder: (ctx, child) => ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular(_borderAnimation.value),
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 275),
+                              color: widget.group.bottom != null
+                                  ? Color(0xff2c2f33)
+                                  : widget.group.top != null
+                                      ? widget.group.id ==
+                                              groups.currentlySelectedId
+                                          ? Color(0xff7289da)
+                                          : Color(0xff2c2f33)
+                                      : null,
+                              width: 50,
+                              height: 50,
+                              child: widget.group.bottom != null
+                                  ? Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.green,
+                                      ),
+                                    )
+                                  : widget.group.top != null
+                                      ? Center(
+                                          child: Icon(
+                                            Icons.message,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : Image.network(
+                                          widget.group.imageUrl,
+                                          fit: BoxFit.cover,
+                                        ),
+                            ),
+                          ),
+                        ),
+                        if (widget.group.messages != null &&
+                            widget.group.messages > 0)
+                          Positioned(
+                            right: -2,
+                            bottom: -2,
+                            height: 22,
+                            width: 22,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Color(0xff2c2f33),
+                                  shape: BoxShape.circle),
+                              padding: EdgeInsets.all(2),
+                              child: Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: FittedBox(
+                                  child: Center(
+                                    child: Text(
+                                      '${widget.group.messages}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ],
