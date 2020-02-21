@@ -101,7 +101,7 @@ class DirectMessage extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(width: 20),
                   Text(
-                    'DIRECT MESSAGE',
+                    'DIRECT MESSAGES',
                     style: TextStyle(
                         color: Colors.white60,
                         fontWeight: FontWeight.bold,
