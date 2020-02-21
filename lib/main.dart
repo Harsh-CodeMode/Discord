@@ -34,7 +34,7 @@ class Airbnb extends StatelessWidget {
       drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Color(0xff23272a),
-        title: Text('Airbnb'),
+        title: Text('Discord'),
       ),
       body: Container(
         color: Color(0xff2c2f33),
