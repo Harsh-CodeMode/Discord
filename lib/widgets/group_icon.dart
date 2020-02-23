@@ -81,8 +81,9 @@ class _GroupIconState extends State<GroupIcon>
               height: 60,
               child: Stack(
                 children: <Widget>[
-                  if (widget.group.messages != null &&
-                      widget.group.messages > 0)
+                  if ((widget.group.messages != null &&
+                          (widget.group.messages > 0)) ||
+                      widget.group.id == 0)
                     Positioned(
                       left: -5,
                       height: 60,
@@ -93,9 +94,12 @@ class _GroupIconState extends State<GroupIcon>
                           curve: Curves.easeIn,
                           width: 10,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                          ),
+                              borderRadius: BorderRadius.circular(5),
+                              color: widget.group.id == 0
+                                  ? groups.currentlySelectedId == 0
+                                      ? Colors.white
+                                      : Colors.white.withOpacity(0)
+                                  : Colors.white),
                           height: widget.group.id == groups.currentlySelectedId
                               ? 35
                               : 10,

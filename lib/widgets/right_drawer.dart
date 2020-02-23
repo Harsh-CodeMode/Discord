@@ -13,13 +13,13 @@ class RightDrawer extends StatelessWidget {
     final double rightDrawerWidth = 265;
     return Container(
       color: Theme.of(context).accentColor,
-      height: double.infinity,
+      height: deviceHeight-55,
       width: rightDrawerWidth,
       child: Column(
         children: <Widget>[
           TopSearch(),
           Container(
-            height: deviceHeight - 95,
+            height: deviceHeight - 165,
             child: ListView.builder(
               padding: EdgeInsets.only(top: 10),
               itemBuilder: (ctx, i) => DirectMessage(

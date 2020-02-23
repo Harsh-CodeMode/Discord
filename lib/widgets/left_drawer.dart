@@ -11,10 +11,8 @@ class LeftDrawer extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
     final double leftDrawerWidth = 75;
     return Container(
-      height: double.infinity,
+      height: deviceHeight - 55,
       color: Theme.of(context).primaryColor,
-      child: Container(
-        height: deviceHeight,
         width: leftDrawerWidth,
         child: ListView.builder(
           itemBuilder: (context, i) {
@@ -22,7 +20,6 @@ class LeftDrawer extends StatelessWidget {
           },
           itemCount: groups.groupList.length,
         ),
-      ),
     );
   }
 }
