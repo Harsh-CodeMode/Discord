@@ -26,11 +26,15 @@ class _DrawerBottomState extends State<DrawerBottom> {
       height: 55,
       width: drawerWidth,
       decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
+        color: Theme
+            .of(context)
+            .accentColor,
         border: Border(
           top: BorderSide(
             width: 1,
-            color: Theme.of(context).primaryColor,
+            color: Theme
+                .of(context)
+                .primaryColor,
           ),
         ),
       ),
@@ -80,7 +84,9 @@ class _DrawerBottomState extends State<DrawerBottom> {
                           width: 13,
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Theme.of(context).accentColor,
+                                color: Theme
+                                    .of(context)
+                                    .accentColor,
                                 shape: BoxShape.circle),
                             child: user.returnStatusIcon(user.userStatus, 12),
                           ),
@@ -109,13 +115,18 @@ class _DrawerBottomState extends State<DrawerBottom> {
                 borderRadius: BorderRadius.circular(30),
                 child: InkWell(
                   onTap: () {},
-                  splashColor: Theme.of(context).primaryColor,
+                  splashColor: Theme
+                      .of(context)
+                      .primaryColor,
                   child: Material(
                     type: MaterialType.transparency,
                     child: IconButton(
                       splashColor: Colors.white10,
                       onPressed: () {
-                        Navigator.of(context).pushNamed(UserSettings.routeName);
+                        Timer(new Duration(milliseconds: 200), () {
+                          Navigator.of(context).pushNamed(
+                              UserSettings.routeName);
+                        });
                       },
                       icon: Icon(
                         Icons.settings,
