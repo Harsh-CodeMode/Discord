@@ -18,7 +18,6 @@ class Setting extends StatelessWidget {
           height: 60,
           width: deviceWidth,
           padding: EdgeInsets.only(left: 20),
-          color: Theme.of(context).canvasColor,
           alignment: Alignment.centerLeft,
           child: settingData['heading'] != true
               ? Row(
