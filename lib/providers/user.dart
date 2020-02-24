@@ -7,7 +7,7 @@ class User extends ChangeNotifier {
     userStatus = status;
   }
 
-  var bottomDrawerKey = GlobalKey();
+  final bottomDrawerKey = GlobalKey();
 
   Icon returnStatusIcon(status) {
     if (status == 'Online') {

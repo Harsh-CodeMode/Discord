@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/user_settings.dart';
+
 import '../providers/user.dart';
+
 import '../widgets/modal_bottom_sheet.dart';
 
 class DrawerBottom extends StatefulWidget {
-
   DrawerBottom({Key key}) : super(key: key);
 
   @override
@@ -19,9 +21,6 @@ class _DrawerBottomState extends State<DrawerBottom> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     final double drawerWidth = 340;
-
-
-
 
     return Container(
       height: 55,
@@ -115,7 +114,9 @@ class _DrawerBottomState extends State<DrawerBottom> {
                     type: MaterialType.transparency,
                     child: IconButton(
                       splashColor: Colors.white10,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(UserSettings.routeName);
+                      },
                       icon: Icon(
                         Icons.settings,
                         color: Colors.white70,

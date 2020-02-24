@@ -1,8 +1,9 @@
-import 'package:discord/widgets/drawer_bottom.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './widgets/custom_drawer.dart';
+
+import './screens/user_settings.dart';
+import './screens/friends_screen.dart';
+
 import './providers/user.dart';
 import './providers/friends.dart';
 import './providers/groups.dart';
@@ -36,23 +37,10 @@ class MyApp extends StatelessWidget {
           accentColor: Color(0xff2c2f33), //right drawer
           canvasColor: Color(0xff44484e), // light right drawe
         ),
-        home: Discord(),
-      ),
-    );
-  }
-}
-
-class Discord extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: CustomDrawer(),
-      appBar: AppBar(
-        backgroundColor: Color(0xff23272a),
-        title: Text('Discord'),
-      ),
-      body: Container(
-        color: Color(0xff2c2f33),
+        routes: {
+          '/': (ctx) => FriendsScreen(),
+          UserSettings.routeName: (ctx) => UserSettings()
+        },
       ),
     );
   }
