@@ -82,7 +82,7 @@ class _DrawerBottomState extends State<DrawerBottom> {
                             decoration: BoxDecoration(
                                 color: Theme.of(context).accentColor,
                                 shape: BoxShape.circle),
-                            child: user.returnStatusIcon(user.userStatus),
+                            child: user.returnStatusIcon(user.userStatus, 12),
                           ),
                         ),
                       ],

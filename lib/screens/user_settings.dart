@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import '../widgets/setting.dart';
+import '../widgets/user_icon.dart';
 import '../data/settings_data.dart';
 
-class UserSettings extends StatelessWidget {
+class UserSettings extends StatefulWidget {
   static const routeName = 'User Settings';
 
   @override
+  _UserSettingsState createState() => _UserSettingsState();
+}
+
+class _UserSettingsState extends State<UserSettings> {
+  var _topContainerPosition = 0.0;
+
+  @override
   Widget build(BuildContext context) {
-
-
-    final deviceheight = MediaQuery.of(context).size.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-    const appBarHeight = 56;
+    final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -35,14 +39,42 @@ class UserSettings extends StatelessWidget {
           color: Colors.blue,
         ),
       ),
-      body: Container(
-        color: Theme.of(context).accentColor,
-        height: deviceheight - statusBarHeight - appBarHeight,
-        width: double.infinity,
-        child: ListView.builder(
-          itemBuilder: (ctx, i) => Setting(settings[i]),
-          itemCount: settings.length,
-
+      body: NotificationListener(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification) {
+            setState(() {
+              _topContainerPosition =
+                  _topContainerPosition + notification.scrollDelta / 2;
+            });
+          }
+        },
+        child: ListView(
+          children: <Widget>[
+            Stack(
+              children: [
+                Positioned(
+                  top: _topContainerPosition,
+                  child: Container(
+                    height: 150,
+                    width: deviceWidth,
+                    color: Theme.of(context).primaryColor,
+                    child: UserIcon(),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 150),
+                  child: Container(
+                    color: Theme.of(context).canvasColor,
+                    child: Column(
+                      children: <Widget>[
+                        ...settings.map((setting) => Setting(setting)).toList()
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

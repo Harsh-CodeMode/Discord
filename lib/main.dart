@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primaryColor: Color(0xff23272a), //left drawer
           accentColor: Color(0xff2c2f33), //right drawer
-          canvasColor: Color(0xff44484e), // light right drawe
+          canvasColor: Color(0xff393c41), // light right drawe
         ),
         routes: {
           '/': (ctx) => FriendsScreen(),
