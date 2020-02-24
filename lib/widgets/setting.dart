@@ -13,7 +13,7 @@ class Setting extends StatelessWidget {
       child: InkWell(
         splashColor: Theme.of(context).primaryColor,
         highlightColor: Colors.black12,
-        onTap: () {},
+        onTap: settingData['heading'] == true ? null : () {},
         child: Container(
           height: 60,
           width: deviceWidth,
