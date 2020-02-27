@@ -4,24 +4,13 @@ import 'package:provider/provider.dart';
 import '../providers/user.dart';
 
 import '../widgets/custom_drawer.dart';
+import '../widgets/friends_scr_top.dart';
 
-class FriendsScreen extends StatefulWidget {
-  @override
-  _FriendsScreenState createState() => _FriendsScreenState();
-}
-
-class _FriendsScreenState extends State<FriendsScreen> {
-//  final GlobalKey all = GlobalKey();
-//  final GlobalKey online = GlobalKey();
-//  final GlobalKey offline = GlobalKey();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class FriendsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final appBar = AppBar(
       elevation: 0,
       backgroundColor: Theme.of(context).accentColor,
@@ -33,7 +22,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
       ],
     );
 
-
     final double deviceHeight = MediaQuery.of(context).size.height;
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final appBarheight = appBar.preferredSize.height;
@@ -44,29 +32,9 @@ class _FriendsScreenState extends State<FriendsScreen> {
       appBar: appBar,
       body: Column(
         children: <Widget>[
-//          Container(
-//            color: Colors.blue,
-//            height: 50,
-//            child: Row(
-//              children: <Widget>[
-//                Container(
-//                  alignment: Alignment.center,
-//                  child: Text('ALL'),
-//                ),
-//                Container(
-//                  alignment: Alignment.center,
-//                  child: Text('ONLINE'),
-//                ),
-//                Container(
-//                  alignment: Alignment.center,
-//                  child: Text('OFFLINE'),
-//                ),
-//              ],
-//            ),
-//          ),
-          Container(),
+          FriendsScrTop(),
           Container(
-            height: deviceHeight - statusBarHeight - appBarheight - 50,
+            height: deviceHeight - statusBarHeight - appBarheight - 52,
           ),
         ],
       ),
