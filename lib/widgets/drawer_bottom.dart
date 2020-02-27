@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../screens/user_settings.dart';
-
 import '../providers/user.dart';
-
+import '../helpers/custom_route.dart';
 import '../widgets/modal_bottom_sheet.dart';
 
 class DrawerBottom extends StatefulWidget {
@@ -26,15 +23,11 @@ class _DrawerBottomState extends State<DrawerBottom> {
       height: 55,
       width: drawerWidth,
       decoration: BoxDecoration(
-        color: Theme
-            .of(context)
-            .accentColor,
+        color: Theme.of(context).accentColor,
         border: Border(
           top: BorderSide(
             width: 1,
-            color: Theme
-                .of(context)
-                .primaryColor,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       ),
@@ -84,9 +77,7 @@ class _DrawerBottomState extends State<DrawerBottom> {
                           width: 13,
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Theme
-                                    .of(context)
-                                    .accentColor,
+                                color: Theme.of(context).accentColor,
                                 shape: BoxShape.circle),
                             child: user.returnStatusIcon(user.userStatus, 12),
                           ),
@@ -115,17 +106,15 @@ class _DrawerBottomState extends State<DrawerBottom> {
                 borderRadius: BorderRadius.circular(30),
                 child: InkWell(
                   onTap: () {},
-                  splashColor: Theme
-                      .of(context)
-                      .primaryColor,
+                  splashColor: Theme.of(context).primaryColor,
                   child: Material(
                     type: MaterialType.transparency,
                     child: IconButton(
                       splashColor: Colors.white10,
                       onPressed: () {
                         Timer(new Duration(milliseconds: 200), () {
-                          Navigator.of(context).pushNamed(
-                              UserSettings.routeName);
+                          Navigator.of(context)
+                              .push(CustomRoute(screenWidget: UserSettings()));
                         });
                       },
                       icon: Icon(

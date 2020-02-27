@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/setting.dart';
 import '../widgets/user_icon.dart';
-import '../data/settings_data.dart';
+import '../helpers//settings_data.dart';
 
 class UserSettings extends StatefulWidget {
   static const routeName = 'User Settings';
