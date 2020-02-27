@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:discord/screens/friends_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +22,15 @@ class DirectMessage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
-          onTap: () => friends.setCurId(id),
+          onTap: first ? () {
+            friends.setCurId(id);
+            Timer(
+                new Duration(milliseconds: 200),
+                () => Navigator.of(context)
+                    .pushReplacementNamed(FriendsScreen.routeName));
+          } : () {
+            friends.setCurId(id);
+          },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 275),
             padding: EdgeInsets.all(10),

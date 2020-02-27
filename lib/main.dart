@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (ctx) => FriendsScreen(),
+          FriendsScreen.routeName: (ctx) => FriendsScreen(),
           UserSettings.routeName: (ctx) => UserSettings()
         },
       ),

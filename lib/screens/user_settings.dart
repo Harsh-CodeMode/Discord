@@ -19,7 +19,7 @@ class _UserSettingsState extends State<UserSettings> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('User Settings'),
+        title: Text('/user_settings'),
         actions: <Widget>[
           IconButton(
               onPressed: () {},

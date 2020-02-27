@@ -7,6 +7,7 @@ import '../widgets/custom_drawer.dart';
 import '../widgets/friends_scr_top.dart';
 
 class FriendsScreen extends StatelessWidget {
+  static const routeName = '/friends_screen';
 
   @override
   Widget build(BuildContext context) {

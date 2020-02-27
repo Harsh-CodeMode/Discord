@@ -25,15 +25,12 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
   }
 
   void getWidth() {
-    RenderBox allRenderBox = _everyoneKey.currentContext.findRenderObject();
-    RenderBox onlineRenderBox = _onlineKey.currentContext.findRenderObject();
-    RenderBox idleRenderBox = _idleKey.currentContext.findRenderObject();
-    RenderBox offlineRenderBox = _offlinekey.currentContext.findRenderObject();
-
-    _everyoneWidth = allRenderBox.size.width;
-    _onlineWidth = onlineRenderBox.size.width;
-    _idleWidth = idleRenderBox.size.width;
-    _offlineWidth = offlineRenderBox.size.width;
+    setState(() {
+      _everyoneWidth = _everyoneKey.currentContext.size.width;
+      _onlineWidth = _onlineKey.currentContext.size.width;
+      _idleWidth = _idleKey.currentContext.size.width;
+      _offlineWidth = _offlinekey.currentContext.size.width;
+    });
   }
 
   @override
