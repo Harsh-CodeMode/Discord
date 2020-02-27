@@ -13,7 +13,7 @@ class RightDrawer extends StatelessWidget {
     final double rightDrawerWidth = 265;
     return Container(
       color: Theme.of(context).accentColor,
-      height: deviceHeight-55,
+      height: deviceHeight - 55,
       width: rightDrawerWidth,
       child: Column(
         children: <Widget>[
@@ -28,6 +28,7 @@ class RightDrawer extends StatelessWidget {
                 first: friends.friendList[i]['first'],
                 name: friends.friendList[i]['name'],
                 id: friends.friendList[i]['id'],
+                status: friends.friendList[i]['status'],
               ),
               itemCount: friends.friendList.length,
             ),

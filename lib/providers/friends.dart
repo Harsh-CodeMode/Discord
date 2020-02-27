@@ -3,11 +3,52 @@ import 'package:flutter/material.dart';
 class Friends extends ChangeNotifier {
   var currentlySelectedId = 3;
 
+  var friendsScreenSelected = 'Everyone';
+
+  void setScreenSelected(String tag) {
+    friendsScreenSelected = tag;
+    notifyListeners();
+  }
+
   void setCurId(int id) {
     currentlySelectedId = id;
     notifyListeners();
   }
 
+  Icon returnStatusIcon(String status, double dimension) {
+    if (status == 'Online') {
+      return Icon(
+        Icons.brightness_1,
+        color: Colors.green,
+        size: dimension,
+      );
+    } else if (status == 'Idle') {
+      return Icon(
+        Icons.brightness_2,
+        color: Colors.yellow,
+        size: dimension,
+      );
+    } else if (status == 'Do Not Disturb') {
+      return Icon(
+        Icons.remove_circle,
+        color: Colors.red,
+        size: dimension,
+      );
+    } else if (status == 'Invisible') {
+      return Icon(
+        Icons.adjust,
+        color: Colors.grey,
+        size: dimension,
+      );
+    } else if (status == 'Offline') {
+      return Icon(
+        Icons.brightness_1,
+        color: Colors.white,
+        size: dimension,
+      );
+    }
+    notifyListeners();
+  }
 
   final List<Map<String, dynamic>> friendList = [
     {
@@ -23,7 +64,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
       'messages': 50,
-      'first': false
+      'first': false,
+      'status': 'Online',
     },
     {
       'id': 2,
@@ -31,7 +73,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEO56Ig79t7Uk7LXei3znHG7uGyjBjjyBibRI7pEs4sNcLNlE_',
       'messages': 0,
-      'first': false
+      'first': false,
+      'status': 'Do Not Disturb',
     },
     {
       'id': 3,
@@ -39,7 +82,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
       'messages': 158,
-      'first': false
+      'first': false,
+      'status': 'Invisible',
     },
     {
       'id': 4,
@@ -47,7 +91,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
       'messages': 1,
-      'first': false
+      'first': false,
+      'status': 'Idle',
     },
     {
       'id': 5,
@@ -55,7 +100,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
       'messages': 0,
-      'first': false
+      'first': false,
+      'status': 'Offline',
     },
     {
       'id': 6,
@@ -63,7 +109,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEO56Ig79t7Uk7LXei3znHG7uGyjBjjyBibRI7pEs4sNcLNlE_',
       'messages': 0,
-      'first': false
+      'first': false,
+      'status': 'Idle',
     },
     {
       'id': 7,
@@ -71,7 +118,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
       'messages': 10,
-      'first': false
+      'first': false,
+      'status': 'Online',
     },
     {
       'id': 8,
@@ -79,7 +127,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
       'messages': 0,
-      'first': false
+      'first': false,
+      'status': 'Offline',
     },
     {
       'id': 9,
@@ -87,7 +136,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
       'messages': 50,
-      'first': false
+      'first': false,
+      'status': 'Online',
     },
     {
       'id': 10,
@@ -95,7 +145,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEO56Ig79t7Uk7LXei3znHG7uGyjBjjyBibRI7pEs4sNcLNlE_',
       'messages': 158,
-      'first': false
+      'first': false,
+      'status': 'Offline',
     },
     {
       'id': 11,
@@ -103,7 +154,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
       'messages': 0,
-      'first': false
+      'first': false,
+      'status': 'Idle',
     },
     {
       'id': 12,
@@ -111,7 +163,8 @@ class Friends extends ChangeNotifier {
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
       'messages': 1,
-      'first': false
+      'first': false,
+      'status': 'Online',
     },
   ];
 }

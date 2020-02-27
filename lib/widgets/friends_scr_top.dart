@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/friends.dart';
 
 class FriendsScrTop extends StatefulWidget {
   @override
@@ -14,7 +17,7 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
   final GlobalKey _offlinekey = GlobalKey();
 
   double _everyoneWidth;
-  double _onlineWidth = 0;
+  double _onlineWidth = 82;
   double _idleWidth;
   double _offlineWidth;
 
@@ -25,16 +28,16 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
   }
 
   void getWidth() {
-    setState(() {
       _everyoneWidth = _everyoneKey.currentContext.size.width;
       _onlineWidth = _onlineKey.currentContext.size.width;
       _idleWidth = _idleKey.currentContext.size.width;
       _offlineWidth = _offlinekey.currentContext.size.width;
-    });
+    ;
   }
 
   @override
   Widget build(BuildContext context) {
+    final friends = Provider.of<Friends>(context, listen: false);
     return Container(
       height: 52,
       child: Stack(
@@ -46,6 +49,7 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
                   setState(() {
                     currentlySelectedIndex = 0;
                   });
+                  friends.setScreenSelected("Online");
                 },
                 key: _onlineKey,
                 splashColor: Theme.of(context).accentColor,
@@ -67,6 +71,7 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
                   setState(() {
                     currentlySelectedIndex = 1;
                   });
+                  friends.setScreenSelected("Idle");
                 },
                 key: _idleKey,
                 splashColor: Theme.of(context).accentColor,
@@ -89,6 +94,7 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
                   setState(() {
                     currentlySelectedIndex = 2;
                   });
+                  friends.setScreenSelected("Offline");
                 },
                 splashColor: Theme.of(context).accentColor,
                 child: Container(
@@ -110,6 +116,7 @@ class _FriendsScrTopState extends State<FriendsScrTop> {
                   setState(() {
                     currentlySelectedIndex = 3;
                   });
+                  friends.setScreenSelected('Everyone');
                 },
                 splashColor: Theme.of(context).accentColor,
                 child: Container(

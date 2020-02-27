@@ -4,7 +4,7 @@ import '../widgets/user_icon.dart';
 import '../helpers//settings_data.dart';
 
 class UserSettings extends StatefulWidget {
-  static const routeName = 'User Settings';
+  static const routeName = '/user_ettings';
 
   @override
   _UserSettingsState createState() => _UserSettingsState();
@@ -19,7 +19,7 @@ class _UserSettingsState extends State<UserSettings> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('/user_settings'),
+        title: Text('User Settings'),
         actions: <Widget>[
           IconButton(
               onPressed: () {},

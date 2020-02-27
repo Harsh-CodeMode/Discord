@@ -44,7 +44,7 @@ class ModalBottomSheet extends StatelessWidget {
           UserStatus(
             userStatusHeight: modalHeight * 0.18,
             icon: Icon(
-              Icons.brightness_3,
+              Icons.brightness_2,
               color: Colors.yellow,
               size: 20,
             ),

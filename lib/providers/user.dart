@@ -19,7 +19,7 @@ class User extends ChangeNotifier {
       );
     } else if (status == 'Idle') {
       return Icon(
-        Icons.brightness_3,
+        Icons.brightness_2,
         color: Colors.yellow,
         size: dimension,
       );

@@ -12,8 +12,15 @@ class DirectMessage extends StatelessWidget {
   final int messages;
   final bool first;
   final int id;
+  final String status;
 
-  DirectMessage({this.name, this.imageUrl, this.messages, this.first, this.id});
+  DirectMessage(
+      {this.name,
+      this.imageUrl,
+      this.messages,
+      this.first,
+      this.id,
+      this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +29,21 @@ class DirectMessage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
-          onTap: first ? () {
-            friends.setCurId(id);
+          onTap: () {
             Timer(
-                new Duration(milliseconds: 200),
-                () => Navigator.of(context)
-                    .pushReplacementNamed(FriendsScreen.routeName));
-          } : () {
-            friends.setCurId(id);
+              new Duration(milliseconds: 200),
+              first
+                  ? () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(FriendsScreen.routeName);
+                      friends.setCurId(id);
+                    }
+                  : () => friends.setCurId(id),
+            );
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 275),
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.only(right: 10, left: first ? 10 : 0),
             margin: EdgeInsets.only(left: 8, right: 8),
             decoration: BoxDecoration(
                 color: friends.currentlySelectedId == id
@@ -46,24 +56,48 @@ class DirectMessage extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(first ? 14 : 16),
-                      child: first
-                          ? Icon(
+                    first
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Icon(
                               Icons.person,
-                              size: 28,
+                              size: 32,
                               color: Colors.white60,
-                            )
-                          : Container(
-                              height: 32,
-                              width: 32,
-                              child: Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                              ),
                             ),
-                    ),
-                    SizedBox(width: 15),
+                          )
+                        : Stack(
+                            children: <Widget>[
+                              Container(
+                                height: 60,
+                                width: 55,
+                                child: Center(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Container(
+                                      child: Image.network(
+                                        imageUrl,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      height: 32,
+                                      width: 32,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 10,
+                                right: 10,
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Theme.of(context).accentColor),
+                                    padding: EdgeInsets.all(1),
+                                    child:
+                                        friends.returnStatusIcon(status, 12)),
+                              )
+                            ],
+                          ),
+                    if (first) SizedBox(width: 15),
                     Container(
                       width: messages == 0 ? 179 : 159,
                       child: Text(
