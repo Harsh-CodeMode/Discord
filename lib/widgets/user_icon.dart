@@ -3,6 +3,12 @@ import 'package:provider/provider.dart';
 import '../providers/user.dart';
 
 class UserIcon extends StatelessWidget {
+  String name;
+  String imageUrl;
+  String status;
+
+  UserIcon({this.imageUrl, this.name, this.status});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +29,9 @@ class UserIcon extends StatelessWidget {
                       width: 80,
                       height: 80,
                       child: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTTAW9ooGa2MV5zyQVh1K7hEZULarlv7wAiPGmfc5uAsgngN_99',
+                        imageUrl == null
+                            ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTTAW9ooGa2MV5zyQVh1K7hEZULarlv7wAiPGmfc5uAsgngN_99'
+                            : imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -43,8 +51,9 @@ class UserIcon extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(1),
                   child: Consumer<User>(
-                    builder: (ctx, user, ch) =>
-                        user.returnStatusIcon(user.userStatus, 24),
+                    builder: (ctx, user, ch) => status == null
+                        ? user.returnStatusIcon(user.userStatus, 24)
+                        : user.returnStatusIcon(status, 24),
                   )),
             ),
           ],
@@ -53,7 +62,9 @@ class UserIcon extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(left: 20),
           child: Text(
-            'User Name',
+            name == null ? 'User Name' : name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
           ),

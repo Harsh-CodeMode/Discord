@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class User extends ChangeNotifier {
   var userStatus = 'Online';
 
-
   void setStatus(status) {
     userStatus = status;
   }
@@ -33,6 +32,12 @@ class User extends ChangeNotifier {
       return Icon(
         Icons.adjust,
         color: Colors.grey,
+        size: dimension,
+      );
+    } else if (status == 'Offline') {
+      return Icon(
+        Icons.brightness_1,
+        color: Colors.white,
         size: dimension,
       );
     }
