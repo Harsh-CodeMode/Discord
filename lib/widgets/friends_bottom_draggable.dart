@@ -1,4 +1,3 @@
-import 'package:discord/providers/user.dart';
 import 'package:flutter/material.dart';
 import './user_icon.dart';
 

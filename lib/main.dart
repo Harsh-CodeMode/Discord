@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/user_settings.dart';
-import './screens/friends_screen.dart';
+import './screens/user_settings.dart';
+import './screens/main_screen.dart';
 
 import './providers/user.dart';
 import './providers/friends.dart';
 import './providers/groups.dart';
+import './providers/main_provider.dart';
+import './providers/chat.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Groups()),
         ChangeNotifierProvider.value(value: Friends()),
         ChangeNotifierProvider.value(value: User()),
+        ChangeNotifierProvider.value(value: Main()),
+        ChangeNotifierProvider.value(value: Chat()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (ctx) => FriendsScreen(),
           FriendsScreen.routeName: (ctx) => FriendsScreen(),
-          UserSettings.routeName: (ctx) => UserSettings()
+          UserSettings.routeName: (ctx) => UserSettings(),
         },
       ),
     );

@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:discord/screens/friends_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/friends.dart';
+import '../providers/main_provider.dart';
 
 class DirectMessage extends StatelessWidget {
   final String name;
@@ -25,21 +25,20 @@ class DirectMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final friends = Provider.of<Friends>(context);
+    final main = Provider.of<Main>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Timer(
-              new Duration(milliseconds: 200),
-              first
-                  ? () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(FriendsScreen.routeName);
-                      friends.setCurId(id);
-                    }
-                  : () => friends.setCurId(id),
-            );
+            Timer(new Duration(milliseconds: 200), () {
+              friends.setCurId(id);
+              Navigator.of(context).pop();
+              Timer(new Duration(milliseconds: 275), () {
+                main.setSelectedScreen(
+                    first ? 'Friends' : 'FriendChat', first ? null : id);
+              });
+            });
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 275),
