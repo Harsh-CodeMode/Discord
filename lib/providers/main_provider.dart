@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../providers/sub_channel.dart';
+
 class Main extends ChangeNotifier {
   var selectedScreen = 'Friends';
-  int friendId;
+  int friendId = 1;
+  SubChannel selectedSubChannel;
 
-  void setSelectedScreen(String screen, int id){
+
+  void setSelectedScreen({String screen, int id, SubChannel currentSubChannel}){
     selectedScreen = screen;
-    friendId = id;
+    if (id != null) {
+      friendId = id;
+    }
+    else{
+      selectedSubChannel = currentSubChannel;
+    }
     notifyListeners();
   }
 }

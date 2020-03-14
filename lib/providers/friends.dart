@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './message_box.dart';
 
 class Friends extends ChangeNotifier {
   var currentlySelectedId = 3;
@@ -55,116 +56,207 @@ class Friends extends ChangeNotifier {
       'id': 0,
       'name': 'Friends',
       'first': true,
-      'messages': null,
+      'messageNumber': null,
       'imageUrl': null,
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 1,
       'name': 'Ishtmeet Singh',
       'imageUrl':
           'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
-      'messages': 50,
+      'messageNumber': 50,
       'first': false,
       'status': 'Online',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 2,
       'name': 'Tavleen Kour',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEO56Ig79t7Uk7LXei3znHG7uGyjBjjyBibRI7pEs4sNcLNlE_',
-      'messages': 0,
+      'messageNumber': 0,
       'first': false,
       'status': 'Do Not Disturb',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 3,
       'name': 'Harshdev Singh Rissam Good boy very much',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
-      'messages': 158,
+      'messageNumber': 158,
       'first': false,
       'status': 'Invisible',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 4,
       'name': 'Gogi',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
-      'messages': 1,
+      'messageNumber': 1,
       'first': false,
       'status': 'Idle',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 5,
       'name': 'Ishtmeet Singh',
       'imageUrl':
           'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
-      'messages': 0,
+      'messageNumber': 0,
       'first': false,
       'status': 'Offline',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 6,
       'name': 'Tavleen Kour',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEO56Ig79t7Uk7LXei3znHG7uGyjBjjyBibRI7pEs4sNcLNlE_',
-      'messages': 0,
+      'messageNumber': 0,
       'first': false,
       'status': 'Idle',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 7,
       'name': 'Harshdev Singh Rissam',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
-      'messages': 10,
+      'messageNumber': 10,
       'first': false,
       'status': 'Online',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 8,
       'name': 'Gogi',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
-      'messages': 0,
+      'messageNumber': 0,
       'first': false,
       'status': 'Offline',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 9,
       'name': 'Ishtmeet',
       'imageUrl':
           'https://global-uploads.webflow.com/5b0d1c0f502061641c1592c5/5b87f3eb7ae6c8f21b6f8cfd_0_ULiiLorLLRG5pY46.jpg',
-      'messages': 50,
+      'messageNumber': 50,
       'first': false,
       'status': 'Online',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 10,
       'name': 'Tavleen',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEO56Ig79t7Uk7LXei3znHG7uGyjBjjyBibRI7pEs4sNcLNlE_',
-      'messages': 158,
+      'messageNumber': 158,
       'first': false,
       'status': 'Offline',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 11,
       'name': 'Harsh',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTxgd3cjxg-e35R4kGWuC0Pm4uRVCSSHy3x7dxyqzyWNu-aJU4',
-      'messages': 0,
+      'messageNumber': 0,
       'first': false,
       'status': 'Idle',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
     {
       'id': 12,
       'name': 'Gogi',
       'imageUrl':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHJ4e0jM59uPl5Gc_kD57KIbwCkPAOQUYON03zZIo-ikCg-1fV',
-      'messages': 1,
+      'messageNumber': 1,
       'first': false,
       'status': 'Online',
+      'messages': [
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+        MessageBox(),
+      ],
     },
   ];
 }

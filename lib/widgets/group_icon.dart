@@ -43,8 +43,8 @@ class _GroupIconState extends State<GroupIcon>
 
   @override
   Widget build(BuildContext context) {
-    final groups = Provider.of<Groups>(context);
 
+    final groups = Provider.of<Groups>(context);
     if (widget.group.id == groups.currentlySelectedId) {
       _borderController.forward();
     } else {
@@ -68,7 +68,7 @@ class _GroupIconState extends State<GroupIcon>
           )
         : GestureDetector(
             onTap: () {
-              if (widget.group.id != groups.currentlySelectedId) {
+              if (widget.group.id != groups.currentlySelectedId && widget.group.id != 14) {
                 groups.setCurId(widget.group.id);
               }
             },

@@ -9,7 +9,7 @@ import '../providers/main_provider.dart';
 class DirectMessage extends StatelessWidget {
   final String name;
   final String imageUrl;
-  final int messages;
+  final int messageNumber;
   final bool first;
   final int id;
   final String status;
@@ -17,7 +17,7 @@ class DirectMessage extends StatelessWidget {
   DirectMessage(
       {this.name,
       this.imageUrl,
-      this.messages,
+      this.messageNumber,
       this.first,
       this.id,
       this.status});
@@ -36,7 +36,8 @@ class DirectMessage extends StatelessWidget {
               Navigator.of(context).pop();
               Timer(new Duration(milliseconds: 275), () {
                 main.setSelectedScreen(
-                    first ? 'Friends' : 'FriendChat', first ? null : id);
+                    screen: first ? 'Friends' : 'FriendChat',
+                    id: first ? null : id);
               });
             });
           },
@@ -98,7 +99,7 @@ class DirectMessage extends StatelessWidget {
                           ),
                     if (first) SizedBox(width: 15),
                     Container(
-                      width: messages == 0 ? 179 : 159,
+                      width: messageNumber == 0 ? 179 : 159,
                       child: Text(
                         name,
                         maxLines: 2,
@@ -112,7 +113,7 @@ class DirectMessage extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (messages != null && messages > 0)
+                if (messageNumber != null && messageNumber > 0)
                   Container(
                     padding: EdgeInsets.all(2),
                     height: 20,
@@ -124,7 +125,7 @@ class DirectMessage extends StatelessWidget {
                     child: FittedBox(
                       child: Center(
                         child: Text(
-                          '${messages}',
+                          '${messageNumber}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

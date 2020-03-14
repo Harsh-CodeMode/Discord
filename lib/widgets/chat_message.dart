@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/friends.dart';
-import '../providers/chat.dart';
+import '../providers/message_box.dart';
 import '../providers/main_provider.dart';
 
 import '../widgets/user_icon.dart';
@@ -15,26 +15,46 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final friendList = Provider.of<Friends>(context).friendList;
+    final friends = Provider.of<Friends>(context);
     final friendId = Provider.of<Main>(context).friendId;
-    final messages = Provider.of<Chat>(context, listen: false).messages;
+    final main = Provider.of<Main>(context, listen: false);
+
+    final messages = main.selectedScreen == 'FriendChat'
+        ? Provider.of<Friends>(context, listen: false)
+            .friendList[friends.currentlySelectedId]['messages']
+        : main.selectedSubChannel.messages;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        index == messages.length - 1
-            ? Column(
-                children: <Widget>[
-                  SizedBox(height: 20),
-                  UserIcon(
-                    name: friendList[friendId]['name'],
-                    imageUrl: friendList[friendId]['imageUrl'],
-                    status: friendList[friendId]['status'],
-                  ),
-                  SizedBox(height: 20),
-                ],
-              )
-            : Container(),
+        if (index == messages.length - 1)
+          main.selectedScreen == 'FriendChat'
+              ? Column(
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    UserIcon(
+                      name: friends.friendList[friendId]['name'],
+                      imageUrl: friends.friendList[friendId]['imageUrl'],
+                      status: friends.friendList[friendId]['status'],
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                )
+              : Column(
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    Text(
+                      'Channel -> ${main.selectedSubChannel.name}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
         Row(
           children: <Widget>[
             Expanded(
@@ -65,7 +85,7 @@ class ChatMessage extends StatelessWidget {
                 width: 40,
                 height: 40,
                 child: Image.network(
-                  friendList[friendId]['imageUrl'],
+                  friends.friendList[friendId]['imageUrl'],
                   fit: BoxFit.cover,
                 ),
               ),
@@ -76,29 +96,31 @@ class ChatMessage extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 2),
                 Text(
-                  friendList[friendId]['name'],
+                  friends.friendList[friendId]['name'],
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ...(messages[index]['messageList'] as List).map(
-                      (message) => Column(
-                        children: <Widget>[
-                          Text(
-                            message,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          SizedBox(height: 5),
-                        ],
+                Consumer<MessageBox>(
+                  builder: (context, messageBox, ch) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ...(messages[index].messageList as List).map(
+                        (message) => Column(
+                          children: <Widget>[
+                            Text(
+                              message,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(height: 5),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+                ),
               ],
             )
           ],

@@ -8,7 +8,6 @@ import './providers/user.dart';
 import './providers/friends.dart';
 import './providers/groups.dart';
 import './providers/main_provider.dart';
-import './providers/chat.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Friends()),
         ChangeNotifierProvider.value(value: User()),
         ChangeNotifierProvider.value(value: Main()),
-        ChangeNotifierProvider.value(value: Chat()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
