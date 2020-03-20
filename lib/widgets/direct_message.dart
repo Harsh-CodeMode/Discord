@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../providers/friends.dart';
 import '../providers/main_provider.dart';
 
+import '../screens/chat_screen.dart';
+
 class DirectMessage extends StatelessWidget {
   final String name;
   final String imageUrl;
@@ -31,15 +33,13 @@ class DirectMessage extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Timer(new Duration(milliseconds: 200), () {
-              friends.setCurId(id);
+            friends.setCurId(id);
+              main.setSelectedScreen(
+                screen: 'FriendChat',
+                id: id,
+              );
               Navigator.of(context).pop();
-              Timer(new Duration(milliseconds: 275), () {
-                main.setSelectedScreen(
-                    screen: first ? 'Friends' : 'FriendChat',
-                    id: first ? null : id);
-              });
-            });
+              Navigator.of(context).pushReplacementNamed(ChatScreen.routeName);
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 275),

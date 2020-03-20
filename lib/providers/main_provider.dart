@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../providers/sub_channel.dart';
 
 class Main extends ChangeNotifier {
+  final userName = 'Harsh';
   var selectedScreen = 'Friends';
   int friendId = 1;
   SubChannel selectedSubChannel;

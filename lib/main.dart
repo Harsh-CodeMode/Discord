@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './screens/user_settings.dart';
-import './screens/main_screen.dart';
+import './screens/friends_screen.dart';
+import './screens/chat_screen.dart';
 
 import './providers/user.dart';
 import './providers/friends.dart';
 import './providers/groups.dart';
 import './providers/main_provider.dart';
+import './providers/sub_channel.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
           '/': (ctx) => FriendsScreen(),
           FriendsScreen.routeName: (ctx) => FriendsScreen(),
           UserSettings.routeName: (ctx) => UserSettings(),
+          ChatScreen.routeName: (ctx) => ChatScreen(),
         },
       ),
     );

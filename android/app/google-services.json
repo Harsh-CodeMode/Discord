@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "946657555279",
+    "firebase_url": "https://discord-5f5cb.firebaseio.com",
+    "project_id": "discord-5f5cb",
+    "storage_bucket": "discord-5f5cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946657555279:android:8b40c55180040828ce8b3a",
+        "android_client_info": {
+          "package_name": "com.discord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946657555279-rfpg4cjjfkiq0vqgbajpo9svs8s6rfju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXvOlQiYo3SyiaG1nk0Bkpo-6RQ3d3H54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946657555279-rfpg4cjjfkiq0vqgbajpo9svs8s6rfju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946657555279:android:d77d26e19669f3edce8b3a",
+        "android_client_info": {
+          "package_name": "discord.example.com.discord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946657555279-rfpg4cjjfkiq0vqgbajpo9svs8s6rfju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXvOlQiYo3SyiaG1nk0Bkpo-6RQ3d3H54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946657555279-rfpg4cjjfkiq0vqgbajpo9svs8s6rfju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

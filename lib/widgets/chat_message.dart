@@ -9,15 +9,19 @@ import '../providers/main_provider.dart';
 import '../widgets/user_icon.dart';
 
 class ChatMessage extends StatelessWidget {
-  int index;
+  final int index;
+  final String date;
+  final String time;
+  final bool newDate;
 
-  ChatMessage(this.index);
+  ChatMessage({this.index, this.newDate, this.date, this.time});
 
   @override
   Widget build(BuildContext context) {
-    final friends = Provider.of<Friends>(context);
-    final friendId = Provider.of<Main>(context).friendId;
+    print(time);
+    final friends = Provider.of<Friends>(context, listen: false);
     final main = Provider.of<Main>(context, listen: false);
+    final deviceWidth = MediaQuery.of(context).size.width;
 
     final messages = main.selectedScreen == 'FriendChat'
         ? Provider.of<Friends>(context, listen: false)
@@ -34,97 +38,139 @@ class ChatMessage extends StatelessWidget {
                   children: <Widget>[
                     SizedBox(height: 20),
                     UserIcon(
-                      name: friends.friendList[friendId]['name'],
-                      imageUrl: friends.friendList[friendId]['imageUrl'],
-                      status: friends.friendList[friendId]['status'],
+                      name: friends.friendList[main.friendId]['name'],
+                      imageUrl: friends.friendList[main.friendId]['imageUrl'],
+                      status: friends.friendList[main.friendId]['status'],
                     ),
                     SizedBox(height: 20),
                   ],
                 )
               : Column(
                   children: <Widget>[
-                    SizedBox(height: 20),
-                    Text(
-                      'Channel -> ${main.selectedSubChannel.name}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(height: 50),
+                    Center(
+                      child: Text(
+                        main.selectedSubChannel.name,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 50),
                   ],
                 ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Divider(
-                thickness: 1,
-                color: Colors.white38,
+        if (newDate)
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Divider(
+                  thickness: 1,
+                  color: Colors.white38,
+                ),
               ),
-            ),
-            Text(
-              DateFormat.yMMMd().format(DateTime.now()),
-              style: TextStyle(color: Colors.white38),
-            ),
-            Expanded(
-              child: Divider(
-                thickness: 1,
-                color: Colors.white38,
+              Text(
+                date,
+                style: TextStyle(color: Colors.white38),
               ),
-            ),
-          ],
-        ),
+              Expanded(
+                child: Divider(
+                  thickness: 1,
+                  color: Colors.white38,
+                ),
+              ),
+            ],
+          ),
         SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                width: 40,
-                height: 40,
-                child: Image.network(
-                  friends.friendList[friendId]['imageUrl'],
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 2),
-                Text(
-                  friends.friendList[friendId]['name'],
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 5),
-                Consumer<MessageBox>(
-                  builder: (context, messageBox, ch) => Column(
+        (date != '' && time != '')
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      child: Image.network(
+                        friends.friendList[main.friendId]['imageUrl'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ...(messages[index].messageList as List).map(
-                        (message) => Column(
+                      SizedBox(height: 2),
+                      Container(
+                        width: deviceWidth - 100,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              message,
-                              style: TextStyle(color: Colors.white),
+                            Container(
+                              constraints:
+                                  BoxConstraints(maxWidth: deviceWidth - 180),
+                              child: Text(
+                                friends.friendList[main.friendId]['name'],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            SizedBox(height: 5),
+                            SizedBox(width: 5),
+                            Text(
+                              time,
+                              style: TextStyle(
+                                color: Colors.white60,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Consumer<MessageBox>(
+                        builder: (context, messageBox, ch) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            ...(messages[index].messageList as List).map(
+                              (message) => Column(
+                                children: <Widget>[
+                                  Container(
+                                    width: deviceWidth - 100,
+                                    child: Text(
+                                      message,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ],
+                  )
+                ],
+              )
+            : Column(
+                children: <Widget>[
+                  Center(
+                    child: Text(
+                      'Start a conversation',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
-        ),
+                  SizedBox(height: 10),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.white38,
+                  ),
+                ],
+              ),
         SizedBox(height: 10),
       ],
     );

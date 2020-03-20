@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../providers/sub_channel.dart';
 import '../providers/main_provider.dart';
 
+import '../screens/chat_screen.dart';
+
 class GroupChannel extends StatefulWidget {
   final String name;
   final List<SubChannel> subChannels;
@@ -15,9 +17,35 @@ class GroupChannel extends StatefulWidget {
   _GroupChannelState createState() => _GroupChannelState();
 }
 
-class _GroupChannelState extends State<GroupChannel> {
+class _GroupChannelState extends State<GroupChannel>
+    with SingleTickerProviderStateMixin {
   bool expanded = true;
   bool expandedDelayDone = true;
+  AnimationController _arrowController;
+  Animation<double> _arrowRotation;
+
+  @override
+  void initState() {
+    
+
+    
+    _arrowController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 275),
+    );
+    _arrowRotation =
+        Tween<double>(begin: 90 / 360, end: 0 / 360).animate(CurvedAnimation(
+      curve: Curves.linear,
+      parent: _arrowController,
+    ));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _arrowController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +63,11 @@ class _GroupChannelState extends State<GroupChannel> {
               child: InkWell(
                 onTap: () {
                   setState(() {
+                    if (expanded) {
+                      _arrowController.forward();
+                    } else {
+                      _arrowController.reverse();
+                    }
                     expanded = !expanded;
                     if (!expanded) {
                       expandedDelayDone = !expandedDelayDone;
@@ -52,12 +85,16 @@ class _GroupChannelState extends State<GroupChannel> {
                   height: 25,
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        expanded
-                            ? Icons.keyboard_arrow_down
-                            : Icons.keyboard_arrow_right,
-                        color: Colors.white54,
-                        size: 20,
+                      AnimatedBuilder(
+                        animation: _arrowController,
+                        builder: (ctx, child) => RotationTransition(
+                          turns: AlwaysStoppedAnimation(_arrowRotation.value),
+                          child: Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Colors.white54,
+                            size: 20,
+                          ),
+                        ),
                       ),
                       Text(
                         widget.name,
@@ -77,16 +114,17 @@ class _GroupChannelState extends State<GroupChannel> {
               (subChannel) => GestureDetector(
                 onTap: () {
                   Navigator.of(context).pop();
-                  Timer(new Duration(milliseconds: 275), () {
                     main.setSelectedScreen(
                         screen: 'GroupChat', currentSubChannel: subChannel);
-                  });
-                },
+                Navigator.of(context).pushReplacementNamed(ChatScreen.routeName);
+                    },
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: main.selectedSubChannel == subChannel ? Theme.of(context).canvasColor : null,
+                    color: main.selectedSubChannel == subChannel
+                        ? Theme.of(context).canvasColor
+                        : null,
                   ),
                   height: 35,
                   child: Row(

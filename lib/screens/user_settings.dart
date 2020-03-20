@@ -4,13 +4,18 @@ import '../widgets/user_icon.dart';
 import '../helpers//settings_data.dart';
 
 class UserSettings extends StatefulWidget {
-  static const routeName = '/user_ettings';
+  static const routeName = '/user_settings';
 
   @override
   _UserSettingsState createState() => _UserSettingsState();
 }
 
 class _UserSettingsState extends State<UserSettings> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   var _topContainerPosition = 0.0;
 
   @override

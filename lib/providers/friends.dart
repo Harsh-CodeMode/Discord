@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './message_box.dart';
 
 class Friends extends ChangeNotifier {
-  var currentlySelectedId = 3;
+  var currentlySelectedId = 0;
 
   var friendsScreenSelected = 'Everyone';
 
@@ -15,6 +15,12 @@ class Friends extends ChangeNotifier {
     currentlySelectedId = id;
     notifyListeners();
   }
+
+  void addMessage({List<MessageBox> messages, int id}) {
+    friendList[id]['messages'] = messages;
+    notifyListeners();
+  }
+
 
   Icon returnStatusIcon(String status, double dimension) {
     if (status == 'Online') {
@@ -51,6 +57,7 @@ class Friends extends ChangeNotifier {
     notifyListeners();
   }
 
+
   final List<Map<String, dynamic>> friendList = [
     {
       'id': 0,
@@ -58,13 +65,7 @@ class Friends extends ChangeNotifier {
       'first': true,
       'messageNumber': null,
       'imageUrl': null,
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 1,
@@ -74,13 +75,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 50,
       'first': false,
       'status': 'Online',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 2,
@@ -90,13 +85,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 0,
       'first': false,
       'status': 'Do Not Disturb',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 3,
@@ -106,13 +95,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 158,
       'first': false,
       'status': 'Invisible',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 4,
@@ -122,13 +105,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 1,
       'first': false,
       'status': 'Idle',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 5,
@@ -138,13 +115,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 0,
       'first': false,
       'status': 'Offline',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 6,
@@ -154,13 +125,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 0,
       'first': false,
       'status': 'Idle',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 7,
@@ -170,13 +135,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 10,
       'first': false,
       'status': 'Online',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 8,
@@ -186,13 +145,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 0,
       'first': false,
       'status': 'Offline',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 9,
@@ -202,13 +155,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 50,
       'first': false,
       'status': 'Online',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 10,
@@ -218,13 +165,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 158,
       'first': false,
       'status': 'Offline',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 11,
@@ -234,13 +175,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 0,
       'first': false,
       'status': 'Idle',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
     {
       'id': 12,
@@ -250,13 +185,7 @@ class Friends extends ChangeNotifier {
       'messageNumber': 1,
       'first': false,
       'status': 'Online',
-      'messages': [
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-        MessageBox(),
-      ],
+      'messages': [],
     },
   ];
 }
