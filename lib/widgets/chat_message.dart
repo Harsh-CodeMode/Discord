@@ -18,7 +18,6 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(time);
     final friends = Provider.of<Friends>(context, listen: false);
     final main = Provider.of<Main>(context, listen: false);
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -131,26 +130,24 @@ class ChatMessage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 5),
-                      Consumer<MessageBox>(
-                        builder: (context, messageBox, ch) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ...(messages[index].messageList as List).map(
-                              (message) => Column(
-                                children: <Widget>[
-                                  Container(
-                                    width: deviceWidth - 100,
-                                    child: Text(
-                                      message,
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          ...(messages[index].messageList as List).map(
+                            (message) => Column(
+                              children: <Widget>[
+                                Container(
+                                  width: deviceWidth - 100,
+                                  child: Text(
+                                    message,
+                                    style: TextStyle(color: Colors.white),
                                   ),
-                                  SizedBox(height: 5),
-                                ],
-                              ),
+                                ),
+                                SizedBox(height: 5),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   )

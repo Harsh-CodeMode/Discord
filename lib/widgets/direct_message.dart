@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +5,7 @@ import '../providers/friends.dart';
 import '../providers/main_provider.dart';
 
 import '../screens/chat_screen.dart';
+import '../screens/friends_screen.dart';
 
 class DirectMessage extends StatelessWidget {
   final String name;
@@ -39,6 +38,10 @@ class DirectMessage extends StatelessWidget {
                 id: id,
               );
               Navigator.of(context).pop();
+              if (friends.currentlySelectedId == 0){
+                Navigator.of(context).pushReplacementNamed(FriendsScreen.routeName);
+                return;
+              }
               Navigator.of(context).pushReplacementNamed(ChatScreen.routeName);
           },
           child: AnimatedContainer(

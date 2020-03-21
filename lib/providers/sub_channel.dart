@@ -11,7 +11,7 @@ class SubChannel extends ChangeNotifier {
 
   SubChannel({this.name, this.private, this.unreadMessages, this.id, this.parentChannelName});
 
-  void setMessages({List<MessageBox> messageList}) {
+  void addMessage({List<MessageBox> messageList}) {
     messages = messageList;
     notifyListeners();
   }

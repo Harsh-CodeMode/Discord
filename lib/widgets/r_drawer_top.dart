@@ -6,7 +6,6 @@ class RDrawerTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final groups = Provider.of<Groups>(context, listen: false);
-//    print(groups.currentlySelectedId);
     return Container(
       height: 110,
       width: double.infinity,
