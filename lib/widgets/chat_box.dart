@@ -22,13 +22,143 @@ class ChatBox extends StatefulWidget {
 
 class _ChatBoxState extends State<ChatBox> {
   final TextEditingController _textController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  int _messagesCount = 50;
+  int messageListLength = 0;
+  bool firstTime = true;
 
   @override
   void initState() {
     final friends = Provider.of<Friends>(context, listen: false);
     final main = Provider.of<Main>(context, listen: false);
     final groups = Provider.of<Groups>(context, listen: false);
+
     List<MessageBox> messageList = [];
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        firstTime = false;
+        _messagesCount = _messagesCount + 50;
+        main.selectedScreen == 'FriendChat'
+            ? Firestore.instance
+                .collection('FriendChats')
+                .where('id', isEqualTo: friends.currentlySelectedId)
+                .getDocuments()
+                .then((response) => response.documents[0].reference
+                        .collection('messages')
+                        .orderBy('time', descending: true)
+                        .limit(_messagesCount)
+                        .getDocuments()
+                        .then((response) {
+                      String lastMessageDate;
+                      String lastMessageTime;
+
+                      List<String> subMessageList = [];
+                      response.documents.forEach((doc) {
+                        String curTime = DateFormat('h:mm a')
+                            .format(doc.data['time'].toDate());
+                        String curDate = DateFormat.yMMMd()
+                            .format(doc.data['time'].toDate());
+                        if (subMessageList.isEmpty) {
+                          subMessageList.add(doc.data['message']);
+                          lastMessageDate = curDate;
+                          lastMessageTime = curTime;
+                        } else if (lastMessageTime == curTime &&
+                            lastMessageDate == curDate) {
+                          subMessageList.add(doc.data['message']);
+                        } else {
+                          messageList.add(MessageBox(
+                            loading: true,
+                            messageList: subMessageList.reversed.toList(),
+                            time: lastMessageTime,
+                            date: lastMessageDate,
+                          ));
+                          subMessageList = [doc.data['message']];
+                          lastMessageDate = curDate;
+                          lastMessageTime = curTime;
+                        }
+                      });
+                      messageList.add(MessageBox(
+                        loading: true,
+                        messageList: subMessageList.reversed.toList(),
+                        time: lastMessageTime == null ? '' : lastMessageTime,
+                        date: lastMessageDate == null ? '' : lastMessageDate,
+                      ));
+                      friends.addMessage(
+                        messages: messageList,
+                        id: friends.currentlySelectedId,
+                      );
+                      if (messageListLength == messageList.length) {
+                        messageList[messageList.length - 1].setLoading(false);
+                      } else {
+                        messageListLength = messageList.length;
+                      }
+
+                      messageList = [];
+                    }))
+            : Firestore.instance
+                .collection('GroupChats')
+                .where('id', isEqualTo: groups.currentlySelectedId)
+                .getDocuments()
+                .then((response) => response.documents[0].reference
+                        .collection('Channels')
+                        .document(main.selectedSubChannel.parentChannelName)
+                        .collection('SubChannels')
+                        .document(main.selectedSubChannel.name)
+                        .collection('messages')
+                        .orderBy('time', descending: true)
+                        .limit(_messagesCount)
+                        .snapshots()
+                        .listen((snapshot) {
+                      String lastMessageDate;
+                      String lastMessageTime;
+
+                      List<String> subMessageList = [];
+                      snapshot.documents.forEach((doc) {
+                        String curTime = DateFormat('h:mm a')
+                            .format(doc.data['time'].toDate());
+                        String curDate = DateFormat.yMMMd()
+                            .format(doc.data['time'].toDate());
+                        if (subMessageList.isEmpty) {
+                          subMessageList.add(doc.data['message']);
+                          lastMessageDate = curDate;
+                          lastMessageTime = curTime;
+                        } else if (lastMessageTime == curTime &&
+                            lastMessageDate == curDate) {
+                          subMessageList.add(doc.data['message']);
+                        } else {
+                          messageList.add(MessageBox(
+                            loading: true,
+                            messageList: subMessageList.reversed.toList(),
+                            time: lastMessageTime,
+                            date: lastMessageDate,
+                          ));
+                          subMessageList = [doc.data['message']];
+                          lastMessageDate = curDate;
+                          lastMessageTime = curTime;
+                        }
+                      });
+                      messageList.add(MessageBox(
+                        loading: true,
+                        messageList: subMessageList.reversed.toList(),
+                        time: lastMessageTime,
+                        date: lastMessageDate,
+                      ));
+                      main.selectedSubChannel.addMessage(
+                        messageList: messageList,
+                      );
+
+                      if (messageListLength == messageList.length) {
+                        messageList[messageList.length - 1].setLoading(false);
+                      } else {
+                        messageListLength = messageList.length;
+                      }
+                      messageList = [];
+                    }));
+      }
+    });
+
     main.selectedScreen == 'FriendChat'
         ? Firestore.instance
             .collection('FriendChats')
@@ -37,11 +167,11 @@ class _ChatBoxState extends State<ChatBox> {
             .then((response) => response.documents[0].reference
                     .collection('messages')
                     .orderBy('time', descending: true)
+                    .limit(_messagesCount)
                     .snapshots()
                     .listen((snapshot) {
                   String lastMessageDate;
                   String lastMessageTime;
-
                   List<String> subMessageList = [];
                   snapshot.documents.forEach((doc) {
                     String curTime =
@@ -57,6 +187,7 @@ class _ChatBoxState extends State<ChatBox> {
                       subMessageList.add(doc.data['message']);
                     } else {
                       messageList.add(MessageBox(
+                        loading: true,
                         messageList: subMessageList.reversed.toList(),
                         time: lastMessageTime,
                         date: lastMessageDate,
@@ -67,15 +198,27 @@ class _ChatBoxState extends State<ChatBox> {
                     }
                   });
                   messageList.add(MessageBox(
+                    loading: true,
                     messageList: subMessageList.reversed.toList(),
-                    time: lastMessageTime,
-                    date: lastMessageDate,
+                    time: lastMessageTime == null ? '' : lastMessageTime,
+                    date: lastMessageDate == null ? '' : lastMessageDate,
                   ));
                   friends.addMessage(
                     messages: messageList,
                     id: friends.currentlySelectedId,
                   );
-
+                  int totalMessages = 0;
+                  if (firstTime) {
+                    for (int i = 0; i < messageList.length; i++) {
+                      totalMessages += messageList[i].messageList.length;
+                    }
+                    messageListLength = messageList.length;
+                    List<MessageBox> msgList = friends
+                        .friendList[friends.currentlySelectedId]['messages'];
+                    if (totalMessages < 50) {
+                      msgList[msgList.length - 1].setLoading(false);
+                    }
+                  }
                   messageList = [];
                 }))
         : Firestore.instance
@@ -89,6 +232,7 @@ class _ChatBoxState extends State<ChatBox> {
                     .document(main.selectedSubChannel.name)
                     .collection('messages')
                     .orderBy('time', descending: true)
+                    .limit(_messagesCount)
                     .snapshots()
                     .listen((snapshot) {
                   String lastMessageDate;
@@ -109,6 +253,7 @@ class _ChatBoxState extends State<ChatBox> {
                       subMessageList.add(doc.data['message']);
                     } else {
                       messageList.add(MessageBox(
+                        loading: true,
                         messageList: subMessageList.reversed.toList(),
                         time: lastMessageTime,
                         date: lastMessageDate,
@@ -119,13 +264,25 @@ class _ChatBoxState extends State<ChatBox> {
                     }
                   });
                   messageList.add(MessageBox(
+                    loading: true,
                     messageList: subMessageList.reversed.toList(),
-                    time: lastMessageTime,
-                    date: lastMessageDate,
+                    time: lastMessageTime == null ? '' : lastMessageTime,
+                    date: lastMessageDate == null ? '' : lastMessageDate,
                   ));
                   main.selectedSubChannel.addMessage(
                     messageList: messageList,
                   );
+                  int totalMessages = 0;
+                  if (firstTime) {
+                    for (int i = 0; i < messageList.length; i++) {
+                      totalMessages += messageList[i].messageList.length;
+                    }
+                    messageListLength = messageList.length;
+                    List<MessageBox> msgList = main.selectedSubChannel.messages;
+                    if (totalMessages < 50) {
+                      msgList[msgList.length - 1].setLoading(false);
+                    }
+                  }
 
                   messageList = [];
                 }));
@@ -154,11 +311,12 @@ class _ChatBoxState extends State<ChatBox> {
                   : main.selectedSubChannel,
               child: Consumer<SubChannel>(
                 builder: (ctx, _, ch) => ListView.builder(
+                  controller: _scrollController,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   reverse: true,
                   itemBuilder: (ctx, index) {
                     List<MessageBox> messages =
-                        main.selectedSubChannel == 'FriendChat'
+                        main.selectedScreen == 'FriendChat'
                             ? friends.friendList[friends.currentlySelectedId]
                                 ['messages']
                             : main.selectedSubChannel.messages;
@@ -172,15 +330,21 @@ class _ChatBoxState extends State<ChatBox> {
                     } else
                       newDate = true;
 
-                    return ChatMessage(
-                      index: index,
-                      newDate: newDate,
-                      date: messages[index].date == null
-                          ? ''
-                          : messages[index].date,
-                      time: messages[index].time == null
-                          ? ''
-                          : messages[index].time,
+                    return ChangeNotifierProvider.value(
+                      value: (main.selectedScreen == 'FriendChat'
+                          ? friends.friendList[friends.currentlySelectedId]
+                              ['messages'][index] as MessageBox
+                          : main.selectedSubChannel.messages[index]
+                              as MessageBox),
+                      child: Consumer<MessageBox>(
+                        builder: (ctxt, messageboxx, ch) => ChatMessage(
+                          loading: messageboxx.loading,
+                          index: index,
+                          newDate: newDate,
+                          date: messages[index].date,
+                          time: messages[index].time,
+                        ),
+                      ),
                     );
                   },
                   itemCount: main.selectedScreen == 'FriendChat'

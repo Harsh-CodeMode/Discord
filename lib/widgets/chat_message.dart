@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +14,9 @@ class ChatMessage extends StatelessWidget {
   final String date;
   final String time;
   final bool newDate;
+  final bool loading;
 
-  ChatMessage({this.index, this.newDate, this.date, this.time});
+  ChatMessage({this.index, this.newDate, this.date, this.time, this.loading});
 
   @override
   Widget build(BuildContext context) {
@@ -32,34 +34,50 @@ class ChatMessage extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         if (index == messages.length - 1)
-          main.selectedScreen == 'FriendChat'
+          loading
               ? Column(
                   children: <Widget>[
                     SizedBox(height: 20),
-                    UserIcon(
-                      name: friends.friendList[main.friendId]['name'],
-                      imageUrl: friends.friendList[main.friendId]['imageUrl'],
-                      status: friends.friendList[main.friendId]['status'],
+                    Center(
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                            backgroundColor: Colors.black),
+                      ),
                     ),
                     SizedBox(height: 20),
                   ],
                 )
-              : Column(
-                  children: <Widget>[
-                    SizedBox(height: 50),
-                    Center(
-                      child: Text(
-                        main.selectedSubChannel.name,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+              : (main.selectedScreen == 'FriendChat'
+                  ? Column(
+                      children: <Widget>[
+                        SizedBox(height: 20),
+                        UserIcon(
+                          name: friends.friendList[main.friendId]['name'],
+                          imageUrl: friends.friendList[main.friendId]
+                              ['imageUrl'],
+                          status: friends.friendList[main.friendId]['status'],
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 50),
-                  ],
-                ),
+                        SizedBox(height: 20),
+                      ],
+                    )
+                  : Column(
+                      children: <Widget>[
+                        SizedBox(height: 50),
+                        Center(
+                          child: Text(
+                            main.selectedSubChannel.name,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 50),
+                      ],
+                    )),
         if (newDate)
           Row(
             children: <Widget>[
